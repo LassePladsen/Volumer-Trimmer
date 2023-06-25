@@ -1,5 +1,5 @@
 testing.py
-idea/
+.idea/
 __pycache__/
 dist/
 build/
