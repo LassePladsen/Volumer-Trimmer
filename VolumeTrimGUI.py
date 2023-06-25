@@ -124,15 +124,18 @@ class FFmpegVolumeTrimGUI:
         self._trim_end_entry = ttk.Entry(self.root, textvariable=end_var, width=entry_width)
 
         # Labels
+        self._trim_label = ttk.Label(self.root, text="Start - end:")
         self._time_label = ttk.Label(self.root, text="(hh:mm:ss)")
         self._hyphen_label = ttk.Label(self.root, text="-")
 
         # Placement
         x, y = 0.5, 0.6
-        pad = 0.13
-        self._trim_start_entry.place(relx=x - pad, rely=y, anchor="center")
-        self._trim_end_entry.place(relx=x + pad, rely=y, anchor="center")
-        self._time_label.place(relx=1 - pad, rely=y, anchor="center")
+        xpad = 0.13
+        ypad = 0.1
+        self._trim_label.place(relx=xpad, rely=y, anchor="center")
+        self._trim_start_entry.place(relx=x - xpad, rely=y, anchor="center")
+        self._trim_end_entry.place(relx=x + xpad, rely=y, anchor="center")
+        self._time_label.place(relx=xpad, rely=y+ypad, anchor="center")
         self._hyphen_label.place(relx=x, rely=y, anchor="center")
 
         # Create the download button
@@ -151,6 +154,7 @@ class FFmpegVolumeTrimGUI:
         try:
             self._trim_start_entry.place_forget()
             self._trim_end_entry.place_forget()
+            self._trim_label.place_forget()
             self._time_label.place_forget()
             self._hyphen_label.place_forget()
         except AttributeError:
