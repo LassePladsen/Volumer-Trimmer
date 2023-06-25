@@ -12,7 +12,7 @@ def ffmpeg_volume(file: str, volume: float | int, outfile: str = None) -> ffmpeg
         ffmpeg
         .input(file)
         .filter("volume", volume)
-        .output(out_file)
+        .output(out_file, loglevel="quiet")
     )
 
 
@@ -32,7 +32,7 @@ def ffmpeg_trim(file: str, start: str, end: str, outfile: str = None) -> ffmpeg.
                 .input(file)
                 .filter_('atrim', start=start, end=end)
                 .filter_('asetpts', 'PTS-STARTPTS')
-                .output(out_file)
+                .output(out_file, loglevel="quiet")
             )
         case "mp4":
             vid = (
@@ -49,7 +49,7 @@ def ffmpeg_trim(file: str, start: str, end: str, outfile: str = None) -> ffmpeg.
             )
 
             joined = ffmpeg.concat(vid, aud, v=1, a=1).node
-            return ffmpeg.output(joined[0], joined[1], out_file)
+            return ffmpeg.output(joined[0], joined[1], out_file, loglevel="quiet")
         case _:
             raise ValueError("File must be an mp3, wav, or mp4 file.")
 
