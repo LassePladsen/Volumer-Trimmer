@@ -70,7 +70,7 @@ class FFmpegVolumeTrimGUI:
         volume_button.place(relx=0.3, rely=0.4, anchor="center")
 
     def create_trim_button(self) -> None:
-        """Creates the trim button widget. The button creates the trim entry and download button widgets."""
+        """Creates the trim button widget. The button creates the trim entry and save button widgets."""
         self._trim_image = tk.PhotoImage(file=settings.TRIM_IMAGE_PATH).subsample(
                 settings.TRIM_IMAGE_SUBSAMPLE[0],
                 settings.TRIM_IMAGE_SUBSAMPLE[1])
@@ -110,7 +110,7 @@ class FFmpegVolumeTrimGUI:
         self._volume_slider.place(relx=slider_position[0], rely=slider_position[1], anchor="center")
         self._volume_entry.place(relx=slider_position[0], rely=slider_position[1] + 0.145, anchor="center")
 
-        self.create_download_button("volume")
+        self.create_save_button("volume")
 
     def create_trim_entries(self) -> None:
         self.hide_volume_slider()  # hide the volume slider if it exists
@@ -138,8 +138,7 @@ class FFmpegVolumeTrimGUI:
         self._time_label.place(relx=xpad, rely=y+ypad, anchor="center")
         self._hyphen_label.place(relx=x, rely=y, anchor="center")
 
-        # Create the download button
-        self.create_download_button("trim")
+        self.create_save_button("trim")
 
     def hide_volume_slider(self) -> None:
         """Hides the volume slider widget if they exist."""
@@ -160,19 +159,19 @@ class FFmpegVolumeTrimGUI:
         except AttributeError:
             return
 
-    def create_download_button(self, download_type: str) -> None:
-        """Creates the download button widget."""
+    def create_save_button(self, click_type: str) -> None:
+        """Creates the save button widget."""
         x, y = 0.5, 0.9
 
-        async def async_download_message() -> None:
-            self.result_label.configure(text="Downloading...")
+        async def async_saving_message() -> None:
+            self.result_label.configure(text="Saving...")
 
         def download() -> None:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
 
             output_file = None
-            match download_type:
+            match click_type:
                 case "volume":
                     output_file = ffmpeg_volume(self._file, self._volume.get() / 100)
                 case "trim":
@@ -181,7 +180,7 @@ class FFmpegVolumeTrimGUI:
                     output_file = ffmpeg_trim(self._file, start, end)
 
             async def download_task():
-                await async_download_message()
+                await async_saving_message()
                 self.result_label.place(relx=x + 0.335, rely=y, anchor="center")
                 output_file.run(overwrite_output=True)
 
@@ -195,6 +194,6 @@ class FFmpegVolumeTrimGUI:
         self._download_image = tk.PhotoImage(file=settings.DOWNLOAD_IMAGE_PATH).subsample(
                 settings.DOWNLOAD_IMAGE_SUBSAMPLE[0],
                 settings.DOWNLOAD_IMAGE_SUBSAMPLE[1])
-        download_button = ttk.Button(self.root, text="Download", image=self._download_image,
+        download_button = ttk.Button(self.root, text="Save", image=self._download_image,
                                      compound="left", command=download)
         download_button.place(relx=x, rely=y, anchor="center")
