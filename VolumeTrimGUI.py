@@ -197,3 +197,7 @@ class FFmpegVolumeTrimGUI:
         download_button = ttk.Button(self.root, text="Save", image=self._download_image,
                                      compound="left", command=download)
         download_button.place(relx=x, rely=y, anchor="center")
+
+    def run(self):
+        """Runs the GUI."""
+        self.root.mainloop()
