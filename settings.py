@@ -19,3 +19,4 @@ AUDIO_IMAGE_PATH = get_absolute_path("data/audio.png")
 AUDIO_IMAGE_SUBSAMPLE = FOLDER_IMAGE_SUBSAMPLE
 TRIM_IMAGE_PATH = get_absolute_path("data/trim.png")
 TRIM_IMAGE_SUBSAMPLE = FOLDER_IMAGE_SUBSAMPLE
+ICON_IMAGE_PATH = get_absolute_path("data/icon.ico")

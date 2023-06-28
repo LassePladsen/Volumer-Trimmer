@@ -20,6 +20,7 @@ class FFmpegVolumeTrimGUI:
         self.root = tk.Tk()
         self.root.title(window_title)
         self.root.resizable(self.resizable[0], self.resizable[1])
+        self.root.iconbitmap(settings.ICON_IMAGE_PATH)
 
         # window sizing
         screen_width = self.root.winfo_screenwidth()
