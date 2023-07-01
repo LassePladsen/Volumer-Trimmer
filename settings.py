@@ -11,12 +11,12 @@ def get_absolute_path(relative_path: str) -> str:
 WINDOW_SIZE = (275, 150)
 WINDOW_TITLE = "Volumer & Trimmer"
 
-FOLDER_IMAGE_PATH = get_absolute_path("data/folder.png")
+FOLDER_IMAGE_PATH = get_absolute_path(r"data\folder.png")
 FOLDER_IMAGE_SUBSAMPLE = (30, 30)
-DOWNLOAD_IMAGE_PATH = get_absolute_path("data/download.png")
+DOWNLOAD_IMAGE_PATH = get_absolute_path(r"data\download.png")
 DOWNLOAD_IMAGE_SUBSAMPLE = FOLDER_IMAGE_SUBSAMPLE
-AUDIO_IMAGE_PATH = get_absolute_path("data/audio.png")
+AUDIO_IMAGE_PATH = get_absolute_path(r"data\audio.png")
 AUDIO_IMAGE_SUBSAMPLE = FOLDER_IMAGE_SUBSAMPLE
-TRIM_IMAGE_PATH = get_absolute_path("data/trim.png")
+TRIM_IMAGE_PATH = get_absolute_path(r"data\trim.png")
 TRIM_IMAGE_SUBSAMPLE = FOLDER_IMAGE_SUBSAMPLE
-ICON_IMAGE_PATH = get_absolute_path("data/icon.ico")
+ICON_IMAGE_PATH = get_absolute_path(r"data\icon.ico")

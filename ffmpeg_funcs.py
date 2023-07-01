@@ -34,7 +34,7 @@ def ffmpeg_trim(file: str, start: str, end: str, outfile: str = None) -> ffmpeg.
                 .filter_('asetpts', 'PTS-STARTPTS')
                 .output(out_file, loglevel="quiet")
             )
-        case "mp4":
+        case "mp4" | "mkv":
             vid = (
                 ffmpeg
                 .input(file)
@@ -51,7 +51,7 @@ def ffmpeg_trim(file: str, start: str, end: str, outfile: str = None) -> ffmpeg.
             joined = ffmpeg.concat(vid, aud, v=1, a=1).node
             return ffmpeg.output(joined[0], joined[1], out_file, loglevel="quiet")
         case _:
-            raise ValueError("File must be an mp3, wav, or mp4 file.")
+            raise NameError("File must be a mp3, wav, mp4, or mkv file.")
 
 
 def format_time_string(time: str):

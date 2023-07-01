@@ -38,13 +38,13 @@ class FFmpegVolumeTrimGUI:
         ask_file_button.place(relx=0.5, rely=0.1, anchor="center")
 
         # Initialize result label beside download button
-        self.result_label = ttk.Label(self.root, text="")
+        self.result_label = ttk.Label(self.root, text="", wraplength=100)
 
     def open_file(self):
         """Method for asking for a filepath and opening it using tkinter, used for the 'Choose a file' tkinter
         button.
         """
-        self._file = filedialog.askopenfilename(filetypes=[("Audio/Video Files", ".mp3 .wav .mp4")])
+        self._file = filedialog.askopenfilename(filetypes=[("Audio/Video Files", ".mp3 .wav .mp4 .mkv")])
         if not self._file:
             return
         max_chars = 40
@@ -178,11 +178,21 @@ class FFmpegVolumeTrimGUI:
                 case "trim":
                     start = self._trim_start_entry.get()
                     end = self._trim_end_entry.get()
-                    output_file = ffmpeg_trim(self._file, start, end)
+                    try:
+                        output_file = ffmpeg_trim(self._file, start, end)
+                    except ValueError:
+                        self.result_label.configure(text="Invalid time format")
+                        return
+                    except NameError:
+                        self.result_label.configure(text="Invalid file format")
+                        return
+                    except ExceptionGroup:
+                        self.result_label.configure(text="Unknown error")
+                        return
+
 
             async def download_task():
                 await async_saving_message()
-                self.result_label.place(relx=x + 0.335, rely=y, anchor="center")
                 output_file.run(overwrite_output=True)
 
             def start_download():
@@ -198,6 +208,7 @@ class FFmpegVolumeTrimGUI:
         download_button = ttk.Button(self.root, text="Save", image=self._download_image,
                                      compound="left", command=download)
         download_button.place(relx=x, rely=y, anchor="center")
+        self.result_label.place(relx=x + 0.335, rely=y, anchor="center")
 
     def run(self):
         """Runs the GUI."""

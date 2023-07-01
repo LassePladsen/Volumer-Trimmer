@@ -1,6 +1,5 @@
 testing.py
 .idea/
 __pycache__/
-dist/
+pyinstaller_work/
 build/
-Volumer & Trimmer.spec
