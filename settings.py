@@ -8,7 +8,7 @@ def get_absolute_path(relative_path: str) -> str:
     return os.path.join(base_path, relative_path)
 
 
-WINDOW_SIZE = (275, 150)
+WINDOW_SIZE = (290, 210)
 WINDOW_TITLE = "Volumer & Trimmer"
 
 FOLDER_IMAGE_PATH = get_absolute_path(r"data\folder.png")

@@ -22,6 +22,10 @@ class FFmpegVolumeTrimGUI:
         self.root.resizable(self.resizable[0], self.resizable[1])
         self.root.iconbitmap(settings.ICON_IMAGE_PATH)
 
+        # Azure theme
+        self.root.tk.call("source", settings.get_absolute_path("data\\Azure-ttk-theme-2.1.0\\azure.tcl"))
+        self.root.tk.call("set_theme", "dark")
+
         # window sizing
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
